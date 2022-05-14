@@ -5,13 +5,15 @@ import Navbar from './components/layouts/Navbar';
 import Users from './components/users/Users'
 import axios from 'axios';
 import Search from './components/users/Search';
+import Alert from './components/layouts/Alert';
 
 class App extends Component {
 
   //defining states - users to store the result of users & loading state for loading .
   state = {
     users: [],
-    loading: false
+    loading: false,
+    alert: null
   }
 
   //this is the method call when component is mounted to the DOM
@@ -41,12 +43,29 @@ class App extends Component {
     this.setState({ users: [], loading: false})
   }
 
+  //show alert
+  setAlert = (msg, type) => {
+    //console.log('Please add!!!!!!!!!!!!!!!!!!')
+    this.setState({ alert: {msg,type}})
+
+    //to make disappear the alert
+    setTimeout(() => {
+      this.setState({ alert: null})
+    }, 3000);
+  }
+
   render() {
     return (
       <div className='App'>
         <Navbar />
         <div className='container'>
-          <Search searchUser={this.searchUser} clearUser={this.clearUser} showClear={this.state.users.length > 0 ? true : false}/>
+          <Alert alert={this.state.alert}/>
+          <Search 
+            searchUser={this.searchUser} 
+            clearUser={this.clearUser} 
+            showClear={this.state.users.length > 0 ? true : false}
+            setAlert={this.setAlert}  
+          />
           <Users loading={this.state.loading} users={this.state.users}/>
           </div>
       </div>

@@ -13,9 +13,15 @@ export default class Search extends Component {
     onSubmit = e => {
         e.preventDefault()
         //console.log(this.state.text)
-        //gonna pass props to upper function app.js
-        this.props.searchUser(this.state.text)
-        this.setState({ text: ''}) //resetting to blank value
+        //if the user doesnt type anything we are gonna generate an alert
+        if(this.state.text === '') {
+            this.props.setAlert('Please enter some name','light')
+        }
+        else{
+            //gonna pass props to upper function app.js
+            this.props.searchUser(this.state.text)
+            this.setState({ text: ''}) //resetting to blank value
+        }
     }
 
     render() {
