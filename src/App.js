@@ -15,14 +15,12 @@ class App extends Component {
 
   //this is the method call when component is mounted to the DOM
   async componentDidMount(){
-    //console.log('running APP compoment')
     //setting loading to true coz we aint fetching as of now 
     this.setState({ loading: true})
     const res = await axios.get('https://api.github.com/users')
     //we have fetched the data so changing the states
     //loading will be false & users array will be updated with data
     this.setState({ users: res.data, loading: false})
-    console.log(res.data)
   }
 
   render() {
